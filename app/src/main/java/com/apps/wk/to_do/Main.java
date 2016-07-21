@@ -37,6 +37,8 @@ public class Main extends AppCompatActivity {
         if (name.equals("")) {
             Intent intent = new Intent(this, Create_Char.class);
             startActivity(intent);
+            finish();
+            return;
         }
 
         //Create Toolbar
