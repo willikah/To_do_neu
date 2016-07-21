@@ -9,7 +9,7 @@ import android.os.Build;
 /**
  * Created by willi on 21.07.2016.
  */
-public class SoundPlayer {
+public class SoundPlayer implements SoundPool.OnLoadCompleteListener {
     Context mContext;
     SoundPool soundPool;
 
@@ -39,13 +39,19 @@ public class SoundPlayer {
             this.soundPool= new SoundPool(1, AudioManager.STREAM_MUSIC,0);
         }
 
-        soundID_intro = soundPool.load(context,context.getResources().getIdentifier("intro","raw", context.getPackageName()),1);
+        this.soundPool.setOnLoadCompleteListener(this);
+
 
     }
 
     public void play(Context context,String sound){
         //soundPool.play(soundPool.load(context,context.getResources().getIdentifier(sound,"raw", context.getPackageName()),1),1,1,0,0,1);
-        soundPool.play(soundID_intro,1,1,0,0,1);
+        //soundPool.load(context, soundID_intro, 1);
+        soundID_intro = soundPool.load(context,context.getResources().getIdentifier("intro","raw", context.getPackageName()),1);
+    }
 
+    @Override
+    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+        soundPool.play(sampleId,1,1,0,0,1);
     }
 }
