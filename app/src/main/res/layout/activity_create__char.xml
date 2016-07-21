@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.apps.wk.to_do.Create_Char"
+    android:id="@+id/ch_c_avBut_if">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:id="@+id/ch_c_name_id"
+        android:layout_marginTop="71dp"
+        android:textSize="30dp"
+        android:layout_below="@+id/ch_c_Titel_id"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/ch_c_edName_id"
+        android:layout_alignTop="@+id/ch_c_name_id"
+        android:layout_toRightOf="@+id/ch_c_name_id"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avatar:"
+        android:id="@+id/ch_c_Ava_id"
+        android:textSize="30dp"
+        android:layout_marginTop="84dp"
+        android:layout_below="@+id/ch_c_edName_id"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Create your Character"
+        android:id="@+id/ch_c_Titel_id"
+        android:layout_marginTop="37dp"
+        android:textSize="30dp"
+        android:textColor="@color/accent_material_light"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/ch_c_AvBut_id"
+        android:src="@mipmap/no_av"
+        android:scaleType="fitXY"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/ch_c_edName_id"
+        android:layout_toRightOf="@+id/ch_c_Ava_id"
+        android:layout_toEndOf="@+id/ch_c_Ava_id"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:background="@null"
+        android:onClick="goto_Ava"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/ch_c_save_id"
+        android:layout_below="@+id/ch_c_AvBut_id"
+        android:layout_alignLeft="@+id/ch_c_Titel_id"
+        android:layout_alignStart="@+id/ch_c_Titel_id"
+        android:layout_marginTop="44dp"
+        android:onClick="save"/>
+
+</RelativeLayout>
