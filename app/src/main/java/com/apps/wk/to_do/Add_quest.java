@@ -21,6 +21,7 @@ public class Add_quest extends AppCompatActivity {
 
     public void add(View view){
 
+        new SoundPlayer(this).play(this, "select");
         //Get quest
         EditText editText = (EditText) findViewById(R.id.aq_edtxt_id);
         String quest=editText.getText().toString();
@@ -28,9 +29,6 @@ public class Add_quest extends AppCompatActivity {
         Storage data = new Storage(this);
         data.addQuest(quest,this);
         //zur liste
-        Intent intent = new Intent(this, Main.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
         finish();
 
     }

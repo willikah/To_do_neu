@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 public class Avatars extends AppCompatActivity {
 
@@ -18,14 +19,11 @@ public class Avatars extends AppCompatActivity {
 
     public void select_avatar(View view) {
 
+        new SoundPlayer(this).play(this, "select");
         //avatar speichern
         int resID = getResources().getIdentifier(view.getTag().toString(), "mipmap", "com.apps.wk.to_do");
         Storage data = new Storage(this);
         data.setAvatar(resID,this);
-
-        //zur Liste
-        Intent intent = new Intent(this, Create_Char.class);
-        startActivity(intent);
         finish();
 
     }

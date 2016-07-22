@@ -13,10 +13,7 @@ public class SoundPlayer implements SoundPool.OnLoadCompleteListener {
     Context mContext;
     SoundPool soundPool;
 
-
-    int soundID_select;
-    int soundID_intro;
-    int soundID_lvl;
+    int soundID;
 
     public SoundPlayer(Context context) {
 
@@ -45,9 +42,8 @@ public class SoundPlayer implements SoundPool.OnLoadCompleteListener {
     }
 
     public void play(Context context,String sound){
-        //soundPool.play(soundPool.load(context,context.getResources().getIdentifier(sound,"raw", context.getPackageName()),1),1,1,0,0,1);
-        //soundPool.load(context, soundID_intro, 1);
-        soundID_intro = soundPool.load(context,context.getResources().getIdentifier("intro","raw", context.getPackageName()),1);
+
+        soundID = soundPool.load(context,context.getResources().getIdentifier(sound,"raw", context.getPackageName()),1);
     }
 
     @Override

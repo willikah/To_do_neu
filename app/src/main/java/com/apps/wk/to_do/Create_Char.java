@@ -1,11 +1,6 @@
 package com.apps.wk.to_do;
 
 import android.content.Intent;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,23 +15,24 @@ public class Create_Char extends AppCompatActivity {
         setContentView(R.layout.activity_create__char);
 
         //avatar laden/anzeigen wenn gewählt
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
         Storage data = new Storage(this);
         int avatar = data.getAvatar();
         if (avatar!=0) {
             ImageButton imageButton = (ImageButton) findViewById(R.id.ch_c_AvBut_id);
             imageButton.setImageResource(avatar);
         }
-        //Namen drin lassen
-        String name = data.getName();
-        if (!name.equals("")) {
-            EditText editText = (EditText) findViewById(R.id.ch_c_edName_id);
-            editText.setText(name);
-        }
-
     }
 
     //beim klicken von save button
     public void save(View view) {
+
+        new SoundPlayer(this).play(this, "intro");
 
         //Get Name
         EditText editText = (EditText) findViewById(R.id.ch_c_edName_id);
@@ -46,7 +42,6 @@ public class Create_Char extends AppCompatActivity {
         data.setName(name,this);
         //zur liste
         Intent intent = new Intent(this, Main.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
 
@@ -55,6 +50,7 @@ public class Create_Char extends AppCompatActivity {
     //beim klicken von avatar button
     public void goto_Ava(View view) {
 
+        new SoundPlayer(this).play(this, "select");
         //Get Name
         EditText editText = (EditText) findViewById(R.id.ch_c_edName_id);
         String name=editText.getText().toString();

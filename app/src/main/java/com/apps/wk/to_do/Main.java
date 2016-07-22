@@ -1,10 +1,7 @@
 package com.apps.wk.to_do;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +11,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+
 import java.util.List;
 
 
@@ -29,12 +28,9 @@ public class Main extends AppCompatActivity {
 
         //Daten laden
         Storage data = new Storage(this);
-        String name = data.getName();
-        int avatar = data.getAvatar();
-        List<String> quests = data.getQuests();
 
         //beim Erststart create char
-        if (name.equals("")) {
+        if (data.getName().equals("")) {
             Intent intent = new Intent(this, Create_Char.class);
             startActivity(intent);
             finish();
@@ -42,20 +38,43 @@ public class Main extends AppCompatActivity {
         }
 
         //Create Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_id);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(name);// Char name
-        getSupportActionBar().setIcon(avatar); // Char pic
-        getSupportActionBar().setSubtitle(String.valueOf(data.getXP()));
-
+        create_toolbar(data);
 
         //Liste
+       create_List(data);
+
+    }
+
+    public void create_toolbar(Storage data){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_id);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(data.getName());// Char name
+        getSupportActionBar().setIcon(data.getAvatar()); // Char pic
+        getSupportActionBar().setSubtitle(String.valueOf(data.get_lvl())+" "+String.valueOf(data.getXP()));
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbar_id);
+        progressBar.setProgress(data.get_progress());
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        // neue Liste
+        Storage data = new Storage(this);
+        create_List(data);
+
+    }
+
+
+    public void create_List(Storage data){
+
+        List<String> quests = data.getQuests();
         // Setup RecyclerView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.movie_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        // Setup Adapter
         DnDAdapter DnD_Adapter = new DnDAdapter(this, quests);
         recyclerView.setAdapter(DnD_Adapter);
         // Setup ItemTouchHelper
@@ -76,7 +95,7 @@ public class Main extends AppCompatActivity {
 
     //neue Quest
     public void add_q(View view){
-
+        new SoundPlayer(this).play(this, "select");
         Intent intent = new Intent(this, Add_quest.class);
         startActivity(intent);
     }

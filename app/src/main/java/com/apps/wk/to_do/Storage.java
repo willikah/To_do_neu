@@ -18,15 +18,39 @@ public class Storage {
     private String name;
     private int avatar;
     private String quests;
-    private int XP=0;
+    private int XP;
 
-    public void setXP(int XP,Context context) {
+    private int last_needed_XP; // XP die für das erreichen des letzten lvls benötigt wurde
+    private int needed_XP; //XP die für das erreichen vom letzten zum nächsten lvl benötig wird
+    private int lvl;
+
+
+    public void setXP(int XP, Context context) {
 
         this.XP = XP;
         SharedPreferences sharedPreferences=context.getSharedPreferences("MyData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor= sharedPreferences.edit();
         editor.putInt("XP",XP);
+
+        int status=(XP-last_needed_XP)-needed_XP;
+
+        //lvl up
+        if (status>=0){
+            this.last_needed_XP=needed_XP+last_needed_XP;
+            this.needed_XP=needed_XP*2;
+            this.lvl++;
+        }
+
+        editor.putInt("lvl",lvl);
+        editor.putInt("needed_XP",needed_XP);
+        editor.putInt("last_needed_XP",last_needed_XP);
+
         editor.commit();
+    }
+
+    public int get_progress(){
+        double p =(((double)XP-(double)last_needed_XP)/(double)needed_XP)*100;
+        return (int) p;
     }
 
     public int getXP() {
@@ -40,6 +64,9 @@ public class Storage {
         this.avatar = sharedPreferences.getInt("avatar",0);
         this.quests = sharedPreferences.getString("quests","");
         this.XP = sharedPreferences.getInt("XP",0);
+        this.lvl = sharedPreferences.getInt("lvl",1);
+        this.last_needed_XP = sharedPreferences.getInt("last_needed_XP",0);
+        this.needed_XP = sharedPreferences.getInt("needed_XP",100);
     }
 
     public void setName(String name,Context context) {
@@ -127,6 +154,11 @@ public class Storage {
 
         SharedPreferences sharedPreferences=context.getSharedPreferences("MyData", Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
+
+    }
+
+    public int get_lvl(){
+        return lvl;
 
     }
 }
