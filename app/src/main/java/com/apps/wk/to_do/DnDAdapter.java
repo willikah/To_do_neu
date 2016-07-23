@@ -27,10 +27,10 @@ public class DnDAdapter extends RecyclerView.Adapter<DnDAdapter.ViewHolder> {
     private List<String> mMovies;
 
 
+
     public DnDAdapter(Context context, List<String> movies) {
         this.mContext = context;
         this.mMovies = movies;
-
 
     }
 
@@ -51,21 +51,31 @@ public class DnDAdapter extends RecyclerView.Adapter<DnDAdapter.ViewHolder> {
             public void onClick(View v) {
 
                 //HIER KLICKEVENTS IN DEN LISTENITEMS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                new SoundPlayer(mContext).play(mContext, "lvl");
 
-                //quest aus prefs entfernen
+                //quest entfernen
                 String quest = txt_v.getText().toString();
-                Toast.makeText(v.getContext(), "+50XP", Toast.LENGTH_SHORT).show();
                 Storage data = new Storage(mContext);
                 data.removeQuest(quest, mContext);
-                data.setXP(data.getXP() + 50, mContext);
-                //remove
                 remove(holder.getAdapterPosition());
+                data.setQuest_cnt(data.getQuest_cnt()+1,mContext); // quest cnt
+
+                //XP setzen
+                int old_lvl = data.get_lvl();
+                data.setXP(data.getXP() + 50, mContext);
+                Toast.makeText(v.getContext(), "+50XP", Toast.LENGTH_SHORT).show();
+
+                //Sounds...
+                final SoundPlayer sp = new SoundPlayer(mContext);
+                if(old_lvl==data.get_lvl()){
+                    sp.play(mContext,"xp");
+                }else{
+                    sp.play(mContext,"lvl_up");
+                }
 
                 //refresh/blink Toolbar
                 Activity activity = (Activity) mContext;
                 final Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar_id);
-                toolbar.setSubtitle(String.valueOf(data.get_lvl())+" "+String.valueOf(data.getXP()));
+                toolbar.setSubtitle("Level " + String.valueOf(data.get_lvl()));
 
                 toolbar.setSubtitleTextColor(Color.YELLOW);
                 Handler handler = new Handler();
@@ -77,6 +87,17 @@ public class DnDAdapter extends RecyclerView.Adapter<DnDAdapter.ViewHolder> {
 
                     }
                 }, 300);
+
+                //soundplayer wieder schließen
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toolbar.setSubtitleTextColor(Color.WHITE);
+                        //Do something after 100ms
+                        sp.release();
+
+                    }
+                }, 4000);
 
                 //Progressbar setzen
                 ProgressBar progressBar = (ProgressBar) ((Activity) mContext).findViewById(R.id.progressbar_id);

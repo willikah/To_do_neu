@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageButton
+        android:id="@+id/tb_add_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:src="@android:drawable/ic_menu_add"
-        android:id="@+id/tb_add_id"
         android:background="@null"
-        android:onClick="add_q"/>
+        android:onClick="add_q"
+        android:soundEffectsEnabled="false"
+        android:src="@android:drawable/ic_menu_add" />
+
     <ProgressBar
+        android:id="@+id/progressbar_id"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="150dp"
         android:layout_height="3dp"
-        android:indeterminate="false"
         android:layout_alignParentBottom="true"
-        android:id="@+id/progressbar_id"/>
+        android:indeterminate="false" />
 
 </android.support.v7.widget.Toolbar>

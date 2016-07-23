@@ -1,6 +1,5 @@
 package com.apps.wk.to_do;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +19,8 @@ import java.util.List;
 public class Main extends AppCompatActivity {
 
 
+    public SoundPlayer sp = new SoundPlayer(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,13 +36,15 @@ public class Main extends AppCompatActivity {
             startActivity(intent);
             finish();
             return;
+        }else {
+            sp.play(this,"intro");
         }
 
         //Create Toolbar
         create_toolbar(data);
 
         //Liste
-       create_List(data);
+        create_List(data);
 
     }
 
@@ -50,7 +53,7 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(data.getName());// Char name
         getSupportActionBar().setIcon(data.getAvatar()); // Char pic
-        getSupportActionBar().setSubtitle(String.valueOf(data.get_lvl())+" "+String.valueOf(data.getXP()));
+        getSupportActionBar().setSubtitle("Level " + String.valueOf(data.get_lvl()));
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbar_id);
         progressBar.setProgress(data.get_progress());
 
@@ -59,13 +62,20 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-
-        // neue Liste
+        sp.play(this,"select");
+        // alles neu laden
         Storage data = new Storage(this);
+        setContentView(R.layout.activity_main);
+        create_toolbar(data);
         create_List(data);
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sp.release();
+    }
 
     public void create_List(Storage data){
 
@@ -95,7 +105,7 @@ public class Main extends AppCompatActivity {
 
     //neue Quest
     public void add_q(View view){
-        new SoundPlayer(this).play(this, "select");
+        sp.play(this, "select");
         Intent intent = new Intent(this, Add_quest.class);
         startActivity(intent);
     }
@@ -106,11 +116,11 @@ public class Main extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
-            case R.id.menu_char_id:
+            /*case R.id.menu_char_id:
                 //Aktion
                 Intent intent = new Intent(this, Create_Char.class);
                 startActivity(intent);
-                break;
+                break;*/
 
             case R.id.menu_quit_id:
                 //Aktion
@@ -123,10 +133,15 @@ public class Main extends AppCompatActivity {
                 System.exit(0);
                 break;
 
+            case R.id.menu_char_id:
+                //Aktion
+                Intent intent2 = new Intent(this, Character.class);
+                startActivity(intent2);
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

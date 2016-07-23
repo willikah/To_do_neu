@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 
 public class Create_Char extends AppCompatActivity {
 
+    public SoundPlayer sp = new SoundPlayer(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +29,14 @@ public class Create_Char extends AppCompatActivity {
             ImageButton imageButton = (ImageButton) findViewById(R.id.ch_c_AvBut_id);
             imageButton.setImageResource(avatar);
         }
+        sp.play(this,"select");
     }
+
 
     //beim klicken von save button
     public void save(View view) {
 
-        new SoundPlayer(this).play(this, "intro");
-
+        sp.release();
         //Get Name
         EditText editText = (EditText) findViewById(R.id.ch_c_edName_id);
         String name=editText.getText().toString();
@@ -50,7 +53,7 @@ public class Create_Char extends AppCompatActivity {
     //beim klicken von avatar button
     public void goto_Ava(View view) {
 
-        new SoundPlayer(this).play(this, "select");
+        sp.play(this, "select");
         //Get Name
         EditText editText = (EditText) findViewById(R.id.ch_c_edName_id);
         String name=editText.getText().toString();

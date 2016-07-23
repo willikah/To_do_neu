@@ -1,5 +1,6 @@
 package com.apps.wk.to_do;
 
+import android.app.Application;
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -9,7 +10,7 @@ import android.os.Build;
 /**
  * Created by willi on 21.07.2016.
  */
-public class SoundPlayer implements SoundPool.OnLoadCompleteListener {
+public class SoundPlayer extends Application implements SoundPool.OnLoadCompleteListener {
     Context mContext;
     SoundPool soundPool;
 
@@ -49,5 +50,11 @@ public class SoundPlayer implements SoundPool.OnLoadCompleteListener {
     @Override
     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
         soundPool.play(sampleId,1,1,0,0,1);
+
     }
+    public void release(){
+        soundPool.release();
+    }
+
+
 }

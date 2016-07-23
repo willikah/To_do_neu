@@ -10,33 +10,34 @@
     tools:context="com.apps.wk.to_do.Add_quest">
 
     <EditText
+        android:id="@+id/aq_edtxt_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/aq_edtxt_id"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="114dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="114dp" />
 
     <Button
+        android:id="@+id/aq_saveb_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save"
-        android:id="@+id/aq_saveb_id"
+        android:layout_below="@+id/aq_edtxt_id"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
         android:onClick="add"
-        android:layout_below="@+id/aq_edtxt_id"
-        android:layout_centerHorizontal="true" />
+        android:soundEffectsEnabled="false"
+        android:text="save" />
 
     <TextView
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Add  a Quest:"
-        android:id="@+id/textView7"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp" />
+        android:layout_marginTop="38dp"
+        android:text="Add  a Quest:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 </RelativeLayout>

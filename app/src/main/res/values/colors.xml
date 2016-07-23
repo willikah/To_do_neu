@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorL_Row">#c0c5ce</color>
+    <color name="ch_tab_Divider">#878787</color>
 </resources>

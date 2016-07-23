@@ -19,11 +19,23 @@ public class Storage {
     private int avatar;
     private String quests;
     private int XP;
-
+    private int quest_cnt;
     private int last_needed_XP; // XP die für das erreichen des letzten lvls benötigt wurde
     private int needed_XP; //XP die für das erreichen vom letzten zum nächsten lvl benötig wird
     private int lvl;
 
+    public void setQuest_cnt(int quest_cnt,Context context) {
+        this.quest_cnt = quest_cnt;
+        SharedPreferences sharedPreferences=context.getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.putInt("quest_cnt",quest_cnt);
+        editor.commit();
+    }
+
+    public int getQuest_cnt() {
+
+        return quest_cnt;
+    }
 
     public void setXP(int XP, Context context) {
 
@@ -48,6 +60,9 @@ public class Storage {
         editor.commit();
     }
 
+    public int get_XP_left(){
+        return needed_XP-(XP-last_needed_XP);
+    }
     public int get_progress(){
         double p =(((double)XP-(double)last_needed_XP)/(double)needed_XP)*100;
         return (int) p;
@@ -67,6 +82,7 @@ public class Storage {
         this.lvl = sharedPreferences.getInt("lvl",1);
         this.last_needed_XP = sharedPreferences.getInt("last_needed_XP",0);
         this.needed_XP = sharedPreferences.getInt("needed_XP",100);
+        this.quest_cnt = sharedPreferences.getInt("quest_cnt",0);
     }
 
     public void setName(String name,Context context) {
@@ -161,4 +177,8 @@ public class Storage {
         return lvl;
 
     }
+
+
+
+
 }
