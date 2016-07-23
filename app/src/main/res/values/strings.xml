@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">To_Do</string>
-    <string name="list_title">Quests</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_quit">Quit (Delete)</string>
     <string name="menu_achv">Achievements</string>
     <string name="menu_char">Character</string>
     <string name="Avatar_top">Choose your Avatar</string>
+
+    <string name="sound_select">select</string>
 </resources>

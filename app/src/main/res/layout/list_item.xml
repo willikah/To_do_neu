@@ -21,6 +21,18 @@
             android:padding="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_alignRight="@+id/l_item_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:numStars="4"
+            android:stepSize="1.0"
+            android:isIndicator="true"
+            />
+
         <CheckBox
             android:id="@+id/l_item_btn"
             android:layout_width="wrap_content"

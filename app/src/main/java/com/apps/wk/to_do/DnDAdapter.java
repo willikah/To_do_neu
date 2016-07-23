@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +26,14 @@ import android.os.Handler;
 public class DnDAdapter extends RecyclerView.Adapter<DnDAdapter.ViewHolder> {
     private Context mContext;
     private List<String> mMovies;
+    private List<Integer> diffi;
 
 
 
-    public DnDAdapter(Context context, List<String> movies) {
+    public DnDAdapter(Context context, List<String> movies, List<Integer> diffi) {
         this.mContext = context;
         this.mMovies = movies;
+        this.diffi = diffi;
 
     }
 
@@ -43,7 +46,9 @@ public class DnDAdapter extends RecyclerView.Adapter<DnDAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.bindMovie(mMovies.get(position));
+
+        holder.bindMovie(mMovies.get(position),diffi.get(position));
+
 
         final TextView txt_v = holder.movieNameTextView;
         holder.btn.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +66,8 @@ public class DnDAdapter extends RecyclerView.Adapter<DnDAdapter.ViewHolder> {
 
                 //XP setzen
                 int old_lvl = data.get_lvl();
-                data.setXP(data.getXP() + 50, mContext);
-                Toast.makeText(v.getContext(), "+50XP", Toast.LENGTH_SHORT).show();
+                data.setXP(data.getXP() + data.get_questXP(quest), mContext);
+                Toast.makeText(v.getContext(),"+ " + String.valueOf(data.get_questXP(quest)) + " XP!", Toast.LENGTH_SHORT).show();
 
                 //Sounds...
                 final SoundPlayer sp = new SoundPlayer(mContext);
@@ -70,6 +75,7 @@ public class DnDAdapter extends RecyclerView.Adapter<DnDAdapter.ViewHolder> {
                     sp.play(mContext,"xp");
                 }else{
                     sp.play(mContext,"lvl_up");
+                    Toast.makeText(v.getContext(),"Level Up!", Toast.LENGTH_SHORT).show();
                 }
 
                 //refresh/blink Toolbar
@@ -125,26 +131,35 @@ public class DnDAdapter extends RecyclerView.Adapter<DnDAdapter.ViewHolder> {
         //geänderte Reihenfolge speichern
         Storage data = new Storage(mContext);
         List<String> list = data.getQuests();
+        List<Integer> diffi = data.get_diffi();
+
         Collections.swap(list, firstPosition, secondPosition);
         data.setQuests(list, mContext);
+
+        Collections.swap(diffi, firstPosition, secondPosition);
+        data.set_diffi(diffi, mContext);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView movieNameTextView;
         public final CheckBox btn;
+        public final RatingBar ratingBar;
         //public View cv;
 
         public ViewHolder(View view) {
             super(view);
             movieNameTextView = (TextView) view.findViewById(R.id.l_item_txt);
             this.btn = (CheckBox) view.findViewById(R.id.l_item_btn);
-            //cv = view.findViewById(R.id.cv_id);
+            ratingBar= (RatingBar) view.findViewById(R.id.ratingBar);
+
 
         }
 
-        public void bindMovie(String movie) {
+        public void bindMovie(String movie, int diffi) {
 
             this.movieNameTextView.setText(movie);
+            this.ratingBar.setRating(diffi);
+            // HIER SCHWIERIGKEIT SETZEN
         }
     }
 

@@ -8,17 +8,31 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Create_Char" />
-        <activity android:name=".Avatars" />
-        <activity android:name=".Add_quest" />
-        <activity android:name=".Main">
+
+        <activity
+            android:name=".Create_Char"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Avatars"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Add_quest"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Character"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Main"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Character"></activity>
+
+
     </application>
 
 </manifest>

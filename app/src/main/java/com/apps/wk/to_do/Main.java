@@ -80,12 +80,13 @@ public class Main extends AppCompatActivity {
     public void create_List(Storage data){
 
         List<String> quests = data.getQuests();
+        List<Integer> diffi = data.get_diffi();
         // Setup RecyclerView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.movie_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        DnDAdapter DnD_Adapter = new DnDAdapter(this, quests);
+        DnDAdapter DnD_Adapter = new DnDAdapter(this, quests, diffi);
         recyclerView.setAdapter(DnD_Adapter);
         // Setup ItemTouchHelper
         ItemTouchHelper.Callback callback = new DnDTouchHelper(DnD_Adapter);
@@ -105,7 +106,7 @@ public class Main extends AppCompatActivity {
 
     //neue Quest
     public void add_q(View view){
-        sp.play(this, "select");
+        sp.play(this, getString(R.string.sound_select));
         Intent intent = new Intent(this, Add_quest.class);
         startActivity(intent);
     }
